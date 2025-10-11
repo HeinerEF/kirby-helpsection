@@ -1,7 +1,8 @@
-title: Helpsection index
-### site\plugins\heineref_helpsection\blueprints\docindex.yml
+title: Cheat sheet item
+### site\plugins\heineref_helpsection\blueprints\cheatsheet_item.yml
 
-icon: info 
+icon: file-text
+num: zero
 
 navigation:
   status: all
@@ -9,14 +10,16 @@ navigation:
 
 status:
   draft: true
-  unlisted: true
-  listed: false
+  unlisted: false
+  listed: true
 
 options:                  # default is "true" with the exception of changeTemplate
-  changeSlug: false
-  changeStatus: false
-  delete: false
-  duplicate: false
+  changeStatus:
+    "*": false
+    admin: true
+  delete:
+    "*": false
+    admin: true
   preview: false
   read:
     "*": false
@@ -44,7 +47,8 @@ tabs:
               en: Pages
               de: Seiten
             create:
-              - cheatsheet
+              - cheatsheet_item
+            num: zero
             image: false
             info: "{{ page.intendedTemplate }}"
 
@@ -61,16 +65,20 @@ tabs:
 
       # main
       - width: 2/3
-        sections:
-          # a simple form
-          content:
-            type: fields
-            fields:
-              text:
-                label:
-                  en: Text
-                  de: Text
-                type:  textarea
+        fields:
+          excerpt:
+            label:
+              en: Summary
+              de: Zusammenfassung
+            type:  textarea
+            help:
+              en: Please enter the "summary" of the page.
+              de: Bitte die "Zusammenfassung" der Seite eingeben.
+          text:
+            label:
+              en: Text
+              de: Text
+            type:  textarea
 
   # seo tab
 ##  seo: tabs/seo
