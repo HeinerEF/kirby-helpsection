@@ -1,7 +1,0 @@
-Title: Formats
-
-----
-
-Excerpt: 
-
-This is the excerpt.
