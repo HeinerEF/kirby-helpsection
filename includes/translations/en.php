@@ -1,8 +1,8 @@
 <?php
 
 return [
-    'view.helpsection' => 'Help',
-    'mgfhelp.close' => 'Close',
-    'mgfhelp.menu' => 'Menu',
-    'mgfhelp.overview' => 'Overview',
+    'view.helpsection' => 'Panel Help',
+    'helpsection.close' => 'Close',
+    'helpsection.menu' => 'Menu',
+    'helpsection.overview' => 'Overview',
 ];

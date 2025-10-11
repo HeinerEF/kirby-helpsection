@@ -1,16 +1,41 @@
 {
-    "name": "amteich/kirby-helpsection",
-    "description": "Panel-View to display help for users.",
+    "name": "heineref/kirby-helpsection",
+    "description": "Panel-View to display panel-help for panel users.",
     "type": "kirby-plugin",
-    "version": "2.0.0",
+    "version": "5.0.0-RC1",
+    "time": "2025-10-06",
     "license": "MIT",
+    "keywords": [
+        "kirby5",
+        "kirby-cms",
+        "kirby-plugin",
+        "helpsection",
+        "HeinerEF"
+    ],
     "authors": [
         {
-            "name": "Christian Zehetner",
-            "email": "christian@am-teich.com"
+            "name":     "Christian Zehetner",
+            "email":    "christian@am-teich.com",
+            "role":     "Developer"
+        },
+        {
+            "name":     "HeinerEF",
+            "homepage": "https://github.com/heineref",
+            "role":     "Developer for the Kirby 5 migration and extension"
         }
     ],
+    "support": {
+        "docs":   "https://github.com/HeinerEF/kirby-helpsection/blob/main/README.md",
+        "source": "https://github.com/heineref/kirby-helpsection"
+    },
     "require": {
+        "php": ">8.2.0",
         "getkirby/composer-installer": "^1.1"
-    }
+    },
+    "extra": {
+        "installer-name": "heineref_helpsection"
+    },
+    "_comment": [
+        "previous plugin version (K3): https://github.com/amteich/kirby-helpsection"
+    ]
 }

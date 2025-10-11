@@ -1,40 +1,51 @@
-<?php
+<?php // site\plugins\heineref_helpsection\index.php
+      //
+      // last update 2025-10-06 by HeinerEF
+      // update      2025-09-28 by HeinerEF
+      // update      2025-09-14 by HeinerEF
+      // update      2025-09-05 by HeinerEF
+      // update      2025-08-18 to 2025-08-08 by HeinerEF
+      // update      2025-07-27               by HeinerEF
 
-namespace amteich\helpsection;
+namespace heineref\helpsection;
 
 use Kirby;
 
-\Kirby::plugin('amteich/helpsection', [
-    'options' => [
-        'icon' => 'question',
-    ],
+Kirby::plugin('heineref/helpsection', [
     'routes' => function ($kirby) {
         return [
             [
-                'pattern' => $kirby->option('amteich.helpsection.contentfolder', 'helpsection'),
-                'action' => function () {
+                'pattern' => $kirby->option('HeinerEF.helpsection.contentfolder', 'helpsection'),
+                'action'  => function () {
                     return false;
                 }
             ]
         ];
     },
     'api' => include __DIR__ . '/includes/api.php',
-    'templates' => [
-        'doc' => __DIR__ . '/templates/doc.php',
-        'docindex' => __DIR__ . '/templates/docindex.php',
+    'templates' => [ // working only for the panel
+        'doc'             => __DIR__ . '/templates/doc.php',
+        'docindex'        => __DIR__ . '/templates/docindex.php',
+        'cheatsheet'      => __DIR__ . '/templates/cheatsheet.php',
+        'cheatsheet_item' => __DIR__ . '/templates/cheatsheet_item.php',
+        'cheatsheet_info' => __DIR__ . '/templates/cheatsheet_info.php',
     ],
-    'blueprints' => [
-        'pages/docindex' => __DIR__ . '/blueprints/docindex.yml'
+    'blueprints' => [ // look also at: "/site/blueprints/pages", which overwrite the following files
+        'pages/doc'             => __DIR__ . '/blueprints/docindex.yml', // file 'doc.yml' is not available !
+        'pages/docindex'        => __DIR__ . '/blueprints/docindex.yml',
+        'pages/cheatsheet'      => __DIR__ . '/blueprints/cheatsheet.yml',
+        'pages/cheatsheet_item' => __DIR__ . '/blueprints/cheatsheet_item.yml',
+        'pages/cheatsheet_info' => __DIR__ . '/blueprints/cheatsheet_info.yml',
     ],
     'translations' => require __DIR__ . '/includes/translations.php',
     'areas' => [
         'helpsection' => function () {
             return [
                 // label for the menu and the breadcrumb
-                'label' => 'Hilfe',
+                'label' => t('view.helpsection', 'Panel Help'),
 
                 // icon for the menu and breadcrumb
-                'icon' => 'amteichhelpsection',
+                'icon' => 'question',
 
                 // show / hide from the menu
                 'menu' => true,
@@ -54,7 +65,7 @@ use Kirby;
                             // props for the component and settings for the current view
                             // (like breadcrumb, title, active search type etc.)
 
-                            $slug = option('amteich.helpsection.contentfolder', 'helpsection');
+                            $slug = option('HeinerEF.helpsection.contentfolder', 'helpsection');
                             $pages = [];
                             $page = page($slug);
 
@@ -76,11 +87,11 @@ use Kirby;
                                     $childrendata = [];
                                     foreach ($children as $child) {
                                         $childrendata[] = [
-                                            'title' => (string)$child->title(),
-                                            'id' => (string)$child->id(),
-                                            'slug' => (string)$child->id(),
+                                            'title'       => (string)$child->title(),
+                                            'id'          => (string)$child->id(),
+                                            'slug'        => (string)$child->id(),
                                             'hasChildren' => (bool)$child->hasChildren(),
-                                            'rendered' => (string)$child->render(),
+                                            'rendered'    => (string)$child->render(),
                                         ];
                                     }
                                     $pagedata['children'] = $childrendata;
@@ -95,7 +106,7 @@ use Kirby;
                                 'component' => 'k-helpsection-view',
 
                                 // the document title for the current view
-                                'title' => 'Hilfe',
+                                'title' => t('view.helpsection', 'Panel Help'),
 
                                 // the breadcrumb can be just an array or a callback
                                 // function for more complex breadcrumb logic
@@ -121,6 +132,7 @@ use Kirby;
                                 // search attribute
                                 'search' => 'pages'
                             ];
+                            /* */
                         }
                     ],
                     [
@@ -139,7 +151,7 @@ use Kirby;
                                 'component' => 'k-helpsection-view',
 
                                 // the document title for the current view
-                                'title' => 'Hilfe',
+                                'title' => t('view.helpsection', 'Panel Help'),
 
                                 // the breadcrumb can be just an array or a callback
                                 // function for more complex breadcrumb logic

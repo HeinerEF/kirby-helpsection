@@ -1,12 +1,16 @@
-<?php
+<?php // site\plugins\heineref_helpsection\includes\api.php
+      //
+      // last update 2025-10-06 by HeinerEF
+      // update      2025-09-13 by HeinerEF
+
 
 return [
     'routes' => [
         [
             // Get the first set of pages to display primary nav
-            'pattern' => 'amteich/helpsection/index',
+            'pattern' => 'heineref/helpsection/index',
             'action'  => function () {
-                $slug = option('amteich.helpsection.contentfolder', 'helpsection');
+                $slug = option('HeinerEF.helpsection.contentfolder', 'helpsection');
                 $pages = [];
                 $page = page($slug);
 
@@ -50,7 +54,7 @@ return [
         ],
         [
             // Get the first set of pages to display primary nav
-            'pattern' => 'amteich/helpsection/page/(:all)',
+            'pattern' => 'heineref/helpsection/page/(:all)',
             'action'  => function ($slug) {
                 return [
                     'rendered' => page($slug)->render(),

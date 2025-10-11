@@ -1,0 +1,5 @@
+Title: Another info
+
+----
+
+Text: This is another info.
