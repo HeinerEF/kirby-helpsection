@@ -14,7 +14,7 @@ I use this plugin (in an earlier version) on all websites I developed to provide
 Due to changes in Kirby version **5.0**, the previously created versions of this plugin are no longer usable.
 Therefore, I have created a new plugin version that is compatible with Kirby version 5.x and possibly higher versions.
 
-With this plugin, the contents of the Helpsection can be translated into any desired Panel language.
+With this plugin, the contents of the Helpsection on multilingual websites can be translated into any desired panel language.
 
 To change the **displayed language** of the Helpsection, the Panel user must change the **Panel language** to their preferred language!
 
