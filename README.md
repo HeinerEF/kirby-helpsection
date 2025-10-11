@@ -7,7 +7,6 @@ The Panel view may look like this:
 This shows a *possible* content for the help section (*here* in **German**), which can be customized and translated like normal pages in the Panel.
 
 This plugin "**Helpsection**" allows users to access detailed explanations of Panel input via a special menu item in the main Panel menu in "*Kirby style*".
-
 Users who are logged into the Panel can access the content, which can be called up directly in the Panel using this plugin, by clicking on the *question-mark-icon* in the Panel menu on the left, which is highlighted in white in the above visible image.
 
 I use this plugin (in an earlier version) on all websites I developed to provide detailed input help in the Panel.
