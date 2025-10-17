@@ -1,6 +1,7 @@
 <?php // site\plugins\heineref_helpsection\index.php
       //
-      // last update 2025-10-06 by HeinerEF
+      // last update 2025-10-17 by HeinerEF
+      // update      2025-10-06 by HeinerEF
       // update      2025-09-28 by HeinerEF
       // update      2025-09-14 by HeinerEF
       // update      2025-09-05 by HeinerEF
@@ -10,6 +11,11 @@
 namespace heineref\helpsection;
 
 use Kirby;
+use Kirby\Data\Data;
+use Kirby\Data\Yaml;
+use Kirby\Filesystem\Dir;
+use Kirby\Filesystem\F;
+use Kirby\Toolkit\A;
 
 Kirby::plugin('heineref/helpsection', [
     'routes' => function ($kirby) {
@@ -37,7 +43,13 @@ Kirby::plugin('heineref/helpsection', [
         'pages/cheatsheet_item' => __DIR__ . '/blueprints/cheatsheet_item.yml',
         'pages/cheatsheet_info' => __DIR__ . '/blueprints/cheatsheet_info.yml',
     ],
-    'translations' => require __DIR__ . '/includes/translations.php',
+    // get the translations from all files (must be php files) in "./translations"
+    'translations' => A::keyBy(A::map(
+        Dir::read(__DIR__ . '/translations'),
+            fn($file) => A::merge(
+                ['lang' => F::name($file),],
+                Yaml::decode(Data::read(__DIR__ . '/translations/' . $file)))
+                                 ), 'lang'),
     'areas' => [
         'helpsection' => function () {
             return [
