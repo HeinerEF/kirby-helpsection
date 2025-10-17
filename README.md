@@ -1,10 +1,10 @@
 # Helpsection
 
-Adds a Panel view `Helpsection` to display help for Panel users.
+Adds the Panel view `Helpsection` to display help for Panel users.
 
 The Panel view may look like this:
 <img src="docs/kirby-helpsection.png" width="100%" alt="Kirby Helpsection">
-This shows a *possible* content for the help section (*here* in **German**), which can be customized and translated like normal pages in the Panel.
+This shows a *possible* content for the help section, which can be customized and translated like normal pages in the Panel.
 
 This plugin "**Helpsection**" allows users to access detailed explanations of Panel input via a special menu item in the main Panel menu in "*Kirby style*".
 Users who are logged into the Panel can access the content, which can be called up directly in the Panel using this plugin, by clicking on the *question-mark-icon* in the Panel menu on the left, which is highlighted in white in the above visible image.
@@ -68,7 +68,7 @@ content
           cheatsheet_item.txt
 ```
 
-After the copy you can edit the content of the help pages (add, change, move or delete every help page or change their content or title) while logged in to the Panel with the "**admin**" role (look at "*options: read*" and "*options: update*" of the blueprint file `site/plugins/heineref_helpsection/blueprints/docindex.yml`).
+After the copy you can edit the content of the help pages (add, change, move or delete every help page or change their content or title) while logged in to the Panel with the "**admin**" role (look at "*options: read*" and "*options: update*" of the blueprint file `site/plugins/heineref_helpsection/blueprints/docindex.yml` and the other blueprints of this Plugin).
 
 Edit the pages in the Panel at "**/helpsection**" (an *unlisted* page).
 
