@@ -1,6 +1,6 @@
 {
     "name": "heineref/kirby-helpsection",
-    "description": "Panel-View to display panel-help for panel users.",
+    "description": "This plugin allows Panel users to display help how to work in the Panel, which can be called up directly in the Panel by clicking on the question-mark-icon in the Panel menu on the left.",
     "type": "kirby-plugin",
     "version": "5.0.0-RC2",
     "time": "2025-10-17",
