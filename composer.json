@@ -2,8 +2,8 @@
     "name": "heineref/kirby-helpsection",
     "description": "Panel-View to display panel-help for panel users.",
     "type": "kirby-plugin",
-    "version": "5.0.0-RC1",
-    "time": "2025-10-06",
+    "version": "5.0.0-RC2",
+    "time": "2025-10-17",
     "license": "MIT",
     "keywords": [
         "kirby5",
