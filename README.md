@@ -12,7 +12,7 @@ Users who are logged into the Panel can access the content, which they can call 
 Due to changes in Kirby version **5.0**, the *previously* created versions of this plugin are no longer usable, which I used on all websites I developed before to provide detailed input help in the Panel.
 Therefore, I have created a new plugin version that is compatible with Kirby version 5.x and possibly higher versions.
 
-This plugin displays the contents of the Helpsection on *multilingual websites* in the current **input language** of the Panel user in the panel, if this language is available in the content of the help section. When the input language is changed, the user usually has to refresh the help section.
+This plugin displays the contents of the Helpsection on *multilingual websites* in the current **input language** of the Panel user in the panel, if this language is available in the content at "**/helpsection**". When the input language is changed, the user usually has to refresh the help section.
 
 ## Installation
 
