@@ -2,7 +2,7 @@
 
 Adds the Panel view **`Helpsection`** to display help for Panel users.
 
-The Panel view may look like this:
+The Panel view *may* look like this:
 <img src="docs/kirby-helpsection.png" width="100%" alt="Kirby Helpsection">
 This shows a *possible* content for the **`Helpsection`**, which can be customized and translated like normal pages in the Panel.
 
