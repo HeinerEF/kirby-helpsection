@@ -1,4 +1,4 @@
-# Helpsection
+# Kirby Plugin: Helpsection
 
 Adds the Panel view **`Helpsection`** to display help for Panel users.
 
@@ -7,7 +7,7 @@ The Panel view *may* look like this:
 This shows a *possible* content for the **`Helpsection`**, which can be customized and translated like normal pages in the Panel.
 
 This plugin "**Helpsection**" allows users to access detailed explanations of Panel input via a special menu item in the main Panel menu.
-Users who are logged into the Panel can access the content, which they can call directly in the Panel by clicking on the *question-mark-icon* in the Panel menu on the left, which is highlighted in white in the above visible image.
+Users who are logged into the Panel can access the content, which can be called up directly in the Panel by clicking on the *question-mark-icon* in the Panel menu on the left, which is highlighted in white in the above visible image.
 
 Due to changes in Kirby version **5.0**, the *previously* created versions of this plugin are no longer usable, which I used on all websites I developed before to provide detailed input help in the Panel.
 Therefore, I have created a new plugin version that is compatible with Kirby version 5.x and possibly higher versions.
@@ -18,7 +18,7 @@ This plugin displays the contents of the Helpsection on *multilingual websites* 
 
 ### Download
 
-[Download](https://github.com/heineref/kirby-helpsection/archive/master.zip) the contents of this repository as Zip file.
+[Download](https://github.com/HeinerEF/kirby-helpsection/archive/master.zip) the contents of this repository as Zip file.
 
 Rename the **extracted** folder to `heineref_helpsection` and copy it into the `site/plugins/` directory in your Kirby project. If it does not exist, create a new directory `site/plugins/` first.
 This file `README.md` therefore receives the path `site/plugins/heineref_helpsection/README.md`.
@@ -26,7 +26,7 @@ This file `README.md` therefore receives the path `site/plugins/heineref_helpsec
 ### Composer
 
 ```
-composer require heineref/kirby-helpsection
+composer require HeinerEF/kirby-helpsection
 ```
 
 ### Git submodule
@@ -34,7 +34,7 @@ composer require heineref/kirby-helpsection
 If you have used git in your project before:
 
 ```
-git submodule add https://github.com/heineref/kirby-helpsection.git site/plugins/heineref_helpsection
+git submodule add https://github.com/HeinerEF/kirby-helpsection.git site/plugins/heineref_helpsection
 ```
 
 ## Setup

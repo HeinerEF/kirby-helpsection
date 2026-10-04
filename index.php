@@ -1,6 +1,9 @@
-<?php // site\plugins\heineref_helpsection\index.php
+<?php
+      // site\plugins\heineref_helpsection\index.php
       //
-      // last update 2025-10-17 by HeinerEF
+      // last update 2026-10-03 by HeinerEF (new plugin structure by Nico)
+      // update      2026-06-21 by HeinerEF (panel view buttons)
+      // update      2025-10-17 by HeinerEF
       // update      2025-10-06 by HeinerEF
       // update      2025-09-28 by HeinerEF
       // update      2025-09-14 by HeinerEF
@@ -17,182 +20,201 @@ use Kirby\Filesystem\Dir;
 use Kirby\Filesystem\F;
 use Kirby\Toolkit\A;
 
-Kirby::plugin('heineref/helpsection', [
+/* dump translations:
+var_dump(
+  A::keyBy(A::map(
+    Dir::read(__DIR__ . '/translations'),
+      fn($file) => A::merge(
+         ['lang' => F::name($file),],
+         Yaml::decode(Data::read(__DIR__ . '/translations/' . $file)))
+                 ), 'lang')
+        );
+/* */
+
+Kirby::plugin(
+  name: 'heineref/helpsection',
+  extends: [
     'routes' => function ($kirby) {
-        return [
-            [
-                'pattern' => $kirby->option('HeinerEF.helpsection.contentfolder', 'helpsection'),
-                'action'  => function () {
-                    return false;
-                }
-            ]
-        ];
+      return [
+        [
+          'pattern' => $kirby->option('HeinerEF.helpsection.contentfolder', 'helpsection'),
+          'action'  => function () {
+            return false;
+          }
+        ]
+      ];
     },
     'api' => include __DIR__ . '/includes/api.php',
     'templates' => [ // working only for the panel
-        'doc'             => __DIR__ . '/templates/doc.php',
-        'docindex'        => __DIR__ . '/templates/docindex.php',
-        'cheatsheet'      => __DIR__ . '/templates/cheatsheet.php',
-        'cheatsheet_item' => __DIR__ . '/templates/cheatsheet_item.php',
-        'cheatsheet_info' => __DIR__ . '/templates/cheatsheet_info.php',
+      'doc'             => __DIR__ . '/templates/doc.php',
+      'docindex'        => __DIR__ . '/templates/docindex.php',
+      'cheatsheet'      => __DIR__ . '/templates/cheatsheet.php',
+      'cheatsheet_item' => __DIR__ . '/templates/cheatsheet_item.php',
+      'cheatsheet_info' => __DIR__ . '/templates/cheatsheet_info.php',
     ],
     'blueprints' => [ // look also at: "/site/blueprints/pages", which overwrite the following files
-        'pages/doc'             => __DIR__ . '/blueprints/docindex.yml', // file 'doc.yml' is not available !
-        'pages/docindex'        => __DIR__ . '/blueprints/docindex.yml',
-        'pages/cheatsheet'      => __DIR__ . '/blueprints/cheatsheet.yml',
-        'pages/cheatsheet_item' => __DIR__ . '/blueprints/cheatsheet_item.yml',
-        'pages/cheatsheet_info' => __DIR__ . '/blueprints/cheatsheet_info.yml',
+      'pages/doc'             => __DIR__ . '/blueprints/docindex.yml', // file 'doc.yml' is not available !
+      'pages/docindex'        => __DIR__ . '/blueprints/docindex.yml',
+      'pages/cheatsheet'      => __DIR__ . '/blueprints/cheatsheet.yml',
+      'pages/cheatsheet_item' => __DIR__ . '/blueprints/cheatsheet_item.yml',
+      'pages/cheatsheet_info' => __DIR__ . '/blueprints/cheatsheet_info.yml',
     ],
     // get the translations from all files (must be php files) in "./translations"
     'translations' => A::keyBy(A::map(
-        Dir::read(__DIR__ . '/translations'),
-            fn($file) => A::merge(
-                ['lang' => F::name($file),],
-                Yaml::decode(Data::read(__DIR__ . '/translations/' . $file)))
-                                 ), 'lang'),
+      Dir::read(__DIR__ . '/translations'),
+        fn($file) => A::merge(
+          ['lang' => F::name($file),],
+          Yaml::decode(Data::read(__DIR__ . '/translations/' . $file)))
+                                      ), 'lang'),
     'areas' => [
-        'helpsection' => function () {
-            return [
-                // label for the menu and the breadcrumb
-                'label' => t('view.helpsection', 'Panel Help'),
+      'helpsection' => function () {
+        return [
+          // label for the menu and the breadcrumb
+          'label' => t('view.helpsection', 'Panel Help'),
 
-                // icon for the menu and breadcrumb
-                'icon' => 'question',
+          // icon for the menu and breadcrumb
+          'icon' => 'question',
 
-                // show / hide from the menu
-                'menu' => true,
+          // show / hide from the menu
+          'menu' => true,
 
-                // link to the main area view
-                'link' => 'helpsection',
+          // link to the main area view
+          'link' => 'helpsection',
 
-                // views
-                'views' => [
-                    [
-                        'pattern' => 'helpsection',
-                        'action'  => function () {
+          // panel view buttons
+          'viewButtons' => [
+            'languages',
+          ],
 
-                            // view routes return a simple array,
-                            // which will be injected into our Vue app;
-                            // the array can control the loaded Vue component,
-                            // props for the component and settings for the current view
-                            // (like breadcrumb, title, active search type etc.)
+          // views
+        'views' => [
+            [
+              'pattern' => 'helpsection',
+              'action'  => function () {
 
-                            $slug = option('HeinerEF.helpsection.contentfolder', 'helpsection');
-                            $pages = [];
-                            $page = page($slug);
+                // view routes return a simple array,
+                // which will be injected into our Vue app;
+                // the array can control the loaded Vue component,
+                // props for the component and settings for the current view
+                // (like breadcrumb, title, active search type etc.)
 
-                            if ($page == null) {
-                                return [
-                                    'status' => 'failed',
-                                    'error' => "Please create a new content-folder <code>$slug</code> to show it here.",
-                                ];
-                            }
+                $slug = option('HeinerEF.helpsection.contentfolder', 'helpsection');
+                $pages = [];
+                $page = page($slug);
 
-                            foreach (page($slug)->children()->listed() as $page) {
-                                $pagedata = [
-                                    'title' => (string)$page->title(),
-                                    'id' => (string)$page->id(),
-                                ];
+                if ($page == null) {
+                  return [
+                    'status' => 'failed',
+                    'error' => "Please create a new content-folder <code>$slug</code> to show it here.",
+                  ];
+                }
 
-                                if ($page->hasListedChildren()) {
-                                    $children = $page->children()->listed();
-                                    $childrendata = [];
-                                    foreach ($children as $child) {
-                                        $childrendata[] = [
-                                            'title'       => (string)$child->title(),
-                                            'id'          => (string)$child->id(),
-                                            'slug'        => (string)$child->id(),
-                                            'hasChildren' => (bool)$child->hasChildren(),
-                                            'rendered'    => (string)$child->render(),
-                                        ];
-                                    }
-                                    $pagedata['children'] = $childrendata;
-                                }
+                foreach (page($slug)->children()->listed() as $page) {
+                  $pagedata = [
+                    'title' => (string)$page->title(),
+                    'id' => (string)$page->id(),
+                  ];
 
-                                $pages[] = $pagedata;
-                            }
+                  if ($page->hasListedChildren()) {
+                    $children = $page->children()->listed();
+                    $childrendata = [];
+                    foreach ($children as $child) {
+                      $childrendata[] = [
+                        'title'     => (string)$child->title(),
+                        'id'      => (string)$child->id(),
+                        'slug'    => (string)$child->id(),
+                        'hasChildren' => (bool)$child->hasChildren(),
+                        'rendered'  => (string)$child->render(),
+                      ];
+                    }
+                    $pagedata['children'] = $childrendata;
+                  }
 
-                            return [
-                                // the Vue component can be defined in the
-                                // `index.js` of your plugin
-                                'component' => 'k-helpsection-view',
+                  $pages[] = $pagedata;
+                }
 
-                                // the document title for the current view
-                                'title' => t('view.helpsection', 'Panel Help'),
+                return [
+                  // the Vue component can be defined in the
+                  // `index.js` of your plugin
+                  'component' => 'k-helpsection-view',
 
-                                // the breadcrumb can be just an array or a callback
-                                // function for more complex breadcrumb logic
-                                // 'breadcrumb' => function () {
-                                //     // each item in the breadcrumb array
-                                //     // has a label and a link attribute
-                                //     return [
-                                //     [
-                                //         'label' => 'Buy some milk',
-                                //         'link'  => '/todos/123'
-                                //     ]
-                                //     ];
-                                // },
+                  // the document title for the current view
+                  'title' => t('view.helpsection', 'Panel Help'),
 
-                                // props will be directly available in the
-                                // Vue component. It's a super convenient way
-                                // to send backend data to the Panel
-                                'props' => [
-                                    'pages' => $pages,
-                                ],
+                  // the breadcrumb can be just an array or a callback
+                  // function for more complex breadcrumb logic
+                  // 'breadcrumb' => function () {
+                  //   // each item in the breadcrumb array
+                  //   // has a label and a link attribute
+                  //   return [
+                  //   [
+                  //     'label' => 'Label #1',
+                  //     'link'  => '/helpsection',
+                  //   ]
+                  //   ];
+                  // },
 
-                                // we can preset the search type with the
-                                // search attribute
-                                'search' => 'pages'
-                            ];
-                            /* */
-                        }
-                    ],
-                    [
-                        'pattern' => 'helpsection/(:all)',
-                        'action'  => function ($slug) {
+                  // props will be directly available in the
+                  // Vue component. It's a super convenient way
+                  // to send backend data to the Panel
+                  'props' => [
+                    'pages' => $pages,
+                  ],
 
-                            // view routes return a simple array,
-                            // which will be injected into our Vue app;
-                            // the array can control the loaded Vue component,
-                            // props for the component and settings for the current view
-                            // (like breadcrumb, title, active search type etc.)
+                  // we can preset the search type with the
+                  // search attribute
+                  'search' => 'pages',
+                ];
+                /* */
+              }
+            ],
+            [
+              'pattern' => 'helpsection/(:all)',
+              'action'  => function ($slug) {
 
-                            return [
-                                // the Vue component can be defined in the
-                                // `index.js` of your plugin
-                                'component' => 'k-helpsection-view',
+                // view routes return a simple array,
+                // which will be injected into our Vue app;
+                // the array can control the loaded Vue component,
+                // props for the component and settings for the current view
+                // (like breadcrumb, title, active search type etc.)
 
-                                // the document title for the current view
-                                'title' => t('view.helpsection', 'Panel Help'),
+                return [
+                  // the Vue component can be defined in the
+                  // `index.js` of your plugin
+                  'component' => 'k-helpsection-view',
 
-                                // the breadcrumb can be just an array or a callback
-                                // function for more complex breadcrumb logic
-                                // 'breadcrumb' => function () {
-                                //     // each item in the breadcrumb array
-                                //     // has a label and a link attribute
-                                //     return [
-                                //     [
-                                //         'label' => 'Buy some milk',
-                                //         'link'  => '/todos/123'
-                                //     ]
-                                //     ];
-                                // },
+                  // the document title for the current view
+                  'title' => t('view.helpsection', 'Panel Help'),
 
-                                // props will be directly available in the
-                                // Vue component. It's a super convenient way
-                                // to send backend data to the Panel
-                                'props' => [
-                                    'slug' => $slug,
-                                ],
+                  // the breadcrumb can be just an array or a callback
+                  // function for more complex breadcrumb logic
+                  // 'breadcrumb' => function () use ($slug) {
+                  //   // each item in the breadcrumb array
+                  //   // has a label and a link attribute
+                  //   return [
+                  //   [
+                  //     'label' => 'Label #2',
+                  //     'link'  => '/helpsection/' . $slug,
+                  //   ]
+                  //   ];
+                  // },
 
-                                // we can preset the search type with the
-                                // search attribute
-                                'search' => 'pages'
-                            ];
-                        }
-                    ],
-                ]
-            ];
-        }
+                  // props will be directly available in the
+                  // Vue component. It's a super convenient way
+                  // to send backend data to the Panel
+                  'props' => [
+                    'slug' => $slug,
+                  ],
+
+                  // we can preset the search type with the
+                  // search attribute
+                  'search' => 'pages'
+                ];
+              }
+            ],
+          ]
+        ]; // return
+      }
     ]
-]);
+  ]
+);

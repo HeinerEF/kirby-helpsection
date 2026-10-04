@@ -1,7 +1,35 @@
 title: Helpsection index
 ### site\plugins\heineref_helpsection\blueprints\docindex.yml
 
-icon: info 
+icon: info
+
+buttons:         # funktioniert für die Eingabe gemäß https://www.youtube.com/watch?v=sbWdX2hwIu4
+  - open
+  - preview
+  - languages
+  - settings
+  - status
+
+### buttons:
+###   languages
+###   page.create: # Adds a new "Add Page" button
+###     icon: add # plus
+###     text: "Add Page HERE!"
+###     theme: red-icon # blue-icon
+### #    parent: 'notes'
+###     dialog: 'pages/create'
+###     create:                     # This line does not work!
+###       - about                   # "
+###       - home                    # "
+###       - default                 # "
+### #      - album                  # "
+### #      - note                   # "
+###       - test                    # "
+###     status: listed              # "
+###     title:                      # "
+###       label: Page name          # "
+###   user.theme: true # Dropdown to switch user's theme
+### #  user.settings: true # Settings dropdown for the user
 
 navigation:
   status: all
