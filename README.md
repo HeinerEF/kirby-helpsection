@@ -18,7 +18,7 @@ This plugin displays the contents of the Helpsection on *multilingual websites* 
 
 ### Download
 
-[Download](https://github.com/HeinerEF/kirby-helpsection/archive/master.zip) the contents of this repository as Zip file.
+[Download](https://github.com/HeinerEF/kirby-helpsection/archive/master.zip) the contents of this repository as ZIP file.
 
 Rename the **extracted** folder to `heineref_helpsection` and copy it into the `site/plugins/` directory in your Kirby project. If it does not exist, create a new directory `site/plugins/` first.
 This file `README.md` therefore receives the path `site/plugins/heineref_helpsection/README.md`.
